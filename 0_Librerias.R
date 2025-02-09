@@ -1,7 +1,10 @@
+#------------------------------------------------------------------#
+#                       Cargando librerías                         #
+#------------------------------------------------------------------#
 paquetes <- c(
   "ggplot2", "reshape", "ggpubr", "reshape2", "dplyr",
   "caret", "rpart", "rpart.plot", "purrr", "precrec",
-  "ROSE", "ROCR", "readr", "caret", "gridExtra"
+  "ROSE", "ROCR", "readr", "caret", "plotly"
 )
 
 # Verifica si hay paquetes faltantes
