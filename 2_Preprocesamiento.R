@@ -83,6 +83,18 @@ data3[variables_numericas] <- scale(data3[variables_numericas])
 summary(data3[variables_numericas])
 
 #==================================================================#
+#                   Análisis de correlación                        #
+#==================================================================#
+
+# Calcular la matriz de correlación
+#-------------------------------------------------------------------
+correlation_matrix <- cor(data3[variables_numericas])
+
+# Visualizar la matriz de correlación
+#-------------------------------------------------------------------
+print(correlation_matrix)
+
+#==================================================================#
 #                     Codificación de variables                    #
 #==================================================================#
 
@@ -92,4 +104,22 @@ category_encoder <- dummyVars("~ .", data = data3)
 data4 <- data.frame(predict(category_encoder, newdata = data3))
 
 # Resumen final del dataset procesado
+#-------------------------------------------------------------------
 summary(data4)
+
+#==================================================================#
+#                  División de datos en train y test               #
+#==================================================================#
+
+set.seed(100)
+index <- createDataPartition(data4$Exited, p = 0.7, list = FALSE)
+
+train_data <- data4[index, ]
+dim(train_data)
+
+test_data <- data4[-index, ]
+dim(test_data)
+
+# Verificar la distribución de la variable objetivo
+#-------------------------------------------------------------------
+print(table(trainData$Exited))

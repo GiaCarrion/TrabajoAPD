@@ -4,13 +4,18 @@
 paquetes <- c(
   "ggplot2", "reshape", "ggpubr", "reshape2", "dplyr",
   "caret", "rpart", "rpart.plot", "purrr", "precrec",
-  "ROSE", "ROCR", "readr", "caret", "plotly"
+  "ROSE", "ROCR", "readr", "caret", "plotly", "FactoMineR",
+  "factoextra", "ggpubr", "PerformanceAnalytics", "corrplot",
+  "rgl", "corrplot", "GGally", "randomForest", "DMwR2", 
+  "smotefamily"
 )
 
 # Verifica si hay paquetes faltantes
+#-------------------------------------------------------------------
 lib_ins <- paquetes[!(paquetes %in% installed.packages()[, "Package"])]
 
 # Instala los paquetes faltantes
+#-------------------------------------------------------------------
 if (length(lib_ins) > 0) {
   for (paquete in lib_ins) {
     cat("Instalando paquete:", paquete, "...\n")
@@ -26,6 +31,7 @@ if (length(lib_ins) > 0) {
 }
 
 # Cargar librerías
+#-------------------------------------------------------------------
 for (p in paquetes) {
   tryCatch(
     {
