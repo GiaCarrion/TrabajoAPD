@@ -6,8 +6,8 @@ paquetes <- c(
   "caret", "rpart", "rpart.plot", "purrr", "precrec",
   "ROSE", "ROCR", "readr", "caret", "plotly", "FactoMineR",
   "factoextra", "ggpubr", "PerformanceAnalytics", "corrplot",
-  "rgl", "corrplot", "GGally", "randomForest", "DMwR2", 
-  "smotefamily"
+  "rgl", "corrplot", "GGally", "randomForest", "DMwR2",
+  "e1071", "knitr"
 )
 
 # Verifica si hay paquetes faltantes

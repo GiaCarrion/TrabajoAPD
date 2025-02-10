@@ -123,3 +123,60 @@ dim(test_data)
 # Verificar la distribución de la variable objetivo
 #-------------------------------------------------------------------
 print(table(trainData$Exited))
+
+#==================================================================#
+#                  Aplicación de técnicas de balanceo              #
+#==================================================================#
+
+# Aplicar SMOTE
+#-------------------------------------------------------------------
+train_smote <- ovun.sample(Exited ~ ., data = train_data, method = "over",
+                           N = 10000, seed = 100)$data
+
+# Aplicar Tomek Links
+#-------------------------------------------------------------------
+train_tomek <- ovun.sample(Exited ~ ., data = trainData, method = "both",
+                           N = nrow(trainData), seed = 100)$data
+
+#==================================================================#
+#                Definir los datasets de entrenamiento             #
+#==================================================================#
+
+# Conjuntos de datos originales
+#-------------------------------------------------------------------
+train_original <- train_data
+test_original <- test_data
+
+# Conjuntos sin la variable Complain
+#-------------------------------------------------------------------
+train_original_no_complain <- train_data[, -which(names(train_data) == "Complain")]
+test_original_no_complain <- test_data[, -which(names(test_data) == "Complain")]
+
+# Conjuntos SMOTE con y sin Complain
+#-------------------------------------------------------------------
+train_smote_no_complain <- train_smote[, -which(names(train_smote) == "Complain")]
+
+# Conjuntos Tomek Links con y sin Complain
+#-------------------------------------------------------------------
+train_tomek_no_complain <- train_tomek[, -which(names(train_tomek) == "Complain")]
+
+# Ver distribución de los datos
+#-------------------------------------------------------------------
+original_distribution <- table(train_data$Exited)
+smote_distribution <- table(train_smote$Exited)
+tomek_distribution <- table(train_tomek$Exited)
+
+# Crear tabla con las distribuciones
+#-------------------------------------------------------------------
+distribution_table <- data.frame(
+  Clase = c("No (0)", "Sí (1)"),
+  Original = as.numeric(original_distribution),
+  SMOTE = as.numeric(smote_distribution),
+  Tomek_Links = as.numeric(tomek_distribution)
+)
+
+# Mostrar tabla
+#-------------------------------------------------------------------
+kable(distribution_table, col.names = c("Clase", "Original", 
+                                        "Sin Complain", "SMOTE", "Tomek Links"))
+
