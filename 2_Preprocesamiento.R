@@ -24,7 +24,7 @@ data1$Card.Type <- ordered(data$Card.Type, levels = c("SILVER", "GOLD",
 levels(data1$Card.Type)
 summary(data1$Card.Type)
 
-# Verificación de otras variables categóricas
+# Verificación de otras variables categóricas nominales
 #-------------------------------------------------------------------
 str(data1)
 data1$Gender <- as.factor(data1$Gender)
@@ -63,8 +63,10 @@ hist(data1$Point.Earned, main = "Histograma de puntaje", col = "orange")
 data2 <- data1
 
 data2$CreditScore <- (data2$CreditScore)^2 # Transformación cuadrática
-data2$Age <- log(data2$Age) # Transformación logarítmica
+boxplot(data2$CreditScore, main = "Boxplot de CreditScore", col = "purple") #Visualización de data transformada
 
+data2$Age <- 1/(data2$Age) # Transformación logarítmica
+boxplot(data2$Age, main = "Boxplot de edad", col = "lightgreen")
 #==================================================================#
 #                  Normalización de variables numéricas            #
 #==================================================================#
@@ -122,7 +124,7 @@ dim(test_data)
 
 # Verificar la distribución de la variable objetivo
 #-------------------------------------------------------------------
-print(table(trainData$Exited))
+print(table(train_data$Exited))
 
 #==================================================================#
 #                  Aplicación de técnicas de balanceo              #
@@ -135,8 +137,8 @@ train_smote <- ovun.sample(Exited ~ ., data = train_data, method = "over",
 
 # Aplicar Tomek Links
 #-------------------------------------------------------------------
-train_tomek <- ovun.sample(Exited ~ ., data = trainData, method = "both",
-                           N = nrow(trainData), seed = 100)$data
+train_tomek <- ovun.sample(Exited ~ ., data = train_data, method = "both",
+                           N = nrow(train_data), seed = 100)$data
 
 #==================================================================#
 #                Definir los datasets de entrenamiento             #
@@ -178,5 +180,5 @@ distribution_table <- data.frame(
 # Mostrar tabla
 #-------------------------------------------------------------------
 kable(distribution_table, col.names = c("Clase", "Original", 
-                                        "Sin Complain", "SMOTE", "Tomek Links"))
+                                "SMOTE", "Tomek Links"))
 
