@@ -66,7 +66,7 @@ data2$CreditScore <- (data2$CreditScore)^2 # Transformación cuadrática
 boxplot(data2$CreditScore, main = "Boxplot de CreditScore", col = "purple") #Visualización de data transformada
 
 data2$Age <- 1/(data2$Age) # Transformación logarítmica
-boxplot(data2$Age, main = "Boxplot de edad", col = "lightgreen")
+boxplot(data2$Age), main = "Boxplot de edad", col = "lightgreen")
 #==================================================================#
 #                  Normalización de variables numéricas            #
 #==================================================================#
