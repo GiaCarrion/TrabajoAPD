@@ -2,12 +2,12 @@
 #                       Cargando librerías                         #
 #------------------------------------------------------------------#
 paquetes <- c(
-  "ggplot2", "reshape", "ggpubr", "reshape2", "dplyr",
+  "pROC", "ggplot2", "reshape", "ggpubr", "reshape2", "dplyr",
   "caret", "rpart", "rpart.plot", "purrr", "precrec",
   "ROSE", "ROCR", "readr", "caret", "plotly", "FactoMineR",
   "factoextra", "ggpubr", "PerformanceAnalytics", "corrplot",
   "rgl", "corrplot", "GGally", "randomForest", "DMwR2",
-  "e1071", "knitr"
+  "e1071", "knitr", "gridExtra"
 )
 
 # Verifica si hay paquetes faltantes
