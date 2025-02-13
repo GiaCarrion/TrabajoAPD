@@ -44,8 +44,12 @@ table(data_grafico$AgeGroup)
 
 # Gráfico de barras para mostrar el abandono general
 #-------------------------------------------------------------------
-bar_chart_general <- ggplot(data_grafico, aes(x = Exited)) +
-  geom_bar(fill = c("#377eb8", "#ff7f00")) +
+bar_chart_general <- ggplot(data_grafico, aes(x = factor(Exited))) +
+  geom_bar(aes(fill = factor(Exited))) +
+  geom_text(stat = "count", aes(label = ..count..), 
+            position = position_stack(vjust = 1), 
+            size = 6, fontface = "bold", color = "black") +  
+  scale_fill_manual(values = c("#377eb8", "#ff7f00")) +
   labs(title = "Distribución de Abandono de Clientes",
        x = "Abandono",
        y = "Cantidad") +
@@ -55,8 +59,11 @@ ggplotly(bar_chart_general)
 
 # Gráfico de barras para mostrar el abandono por género
 #-------------------------------------------------------------------
-bar_chart_gender <- ggplot(data_grafico, aes(x = Gender, fill = Exited)) +
+bar_chart_gender <- ggplot(data_grafico, aes(x = Gender, fill = factor(Exited))) +
   geom_bar(position = "dodge") +
+  geom_text(stat = "count", aes(label = ..count..), 
+            position = position_dodge(width = 0.9),
+            vjust = 1.5, size = 6, fontface = "bold", color = "black") +  
   scale_fill_manual(values = c("#377eb8", "#ff7f00")) +
   labs(title = "Distribución de Abandono de Clientes por Género",
        x = "Género",
@@ -70,6 +77,9 @@ ggplotly(bar_chart_gender)
 #-------------------------------------------------------------------
 bar_chart_country <- ggplot(data_grafico, aes(x = Geography, fill = Exited)) +
   geom_bar(position = "dodge") +
+  geom_text(stat = "count", aes(label = ..count..), 
+            position = position_dodge(width = 0.9),
+            vjust = 1.5, size = 6, fontface = "bold", color = "black") +
   scale_fill_manual(values = c("#377eb8", "#ff7f00")) +
   labs(title = "Distribución de Abandono de Clientes por País",
        x = "País",
@@ -83,6 +93,9 @@ ggplotly(bar_chart_country)
 #-------------------------------------------------------------------
 age_bar_chart <- ggplot(data_grafico, aes(x = AgeGroup, fill = Exited)) +
   geom_bar(position = "dodge") +
+  geom_text(stat = "count", aes(label = ..count..), 
+            position = position_dodge(width = 0.9),
+            vjust = 1.5, size = 4, fontface = "bold", color = "black") +
   scale_fill_manual(values = c("#377eb8", "#ff7f00")) +
   labs(title = "Distribución de Abandono por Rango de Edad",
        x = "Rango de Edad",

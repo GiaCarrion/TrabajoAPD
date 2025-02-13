@@ -179,4 +179,3 @@ distribution_table <- data.frame(
 #-------------------------------------------------------------------
 kable(distribution_table, col.names = c("Clase", "Original", 
                                         "Sin Complain", "SMOTE", "Tomek Links"))
-
