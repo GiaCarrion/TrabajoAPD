@@ -21,7 +21,7 @@ plot_confusion_matrix <- function(conf_matrix, title) {
       axis.text.x = element_text(size = 10),
       axis.text.y = element_text(size = 10),
       legend.position = "none",  # Ocultar la leyenda para reducir espacio
-      plot.margin = margin(0, 0, 0, 0, "cm")  # Reducir márgenes
+      plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")  # Reducir márgenes
     )
 }
 
@@ -64,17 +64,19 @@ calcular_roc <- function(modelo, test_data, modelo_nombre) {
 }
 
 # Calcular curvas ROC para cada modelo
-roc_arbol_original <- calcular_roc(modelo_arbol_original_nc, test_original_no_complain, "Árbol - Original")
-roc_arbol_smote <- calcular_roc(modelo_arbol_smote_nc, test_original_no_complain, "Árbol - SMOTE")
-roc_arbol_tomek <- calcular_roc(modelo_arbol_tomek_nc, test_original_no_complain, "Árbol - Tomek")
+roc_arbol_original <- calcular_roc(res_original_no_complain, test_original_no_complain, "Árbol - Original")
+roc_arbol_smote <- calcular_roc(res_smote_no_complain, test_original_no_complain, "Árbol - SMOTE")
+#roc_arbol_tomek <- calcular_roc(modelo_arbol_tomek_nc, test_original_no_complain, "Árbol - Tomek")
 
 roc_svm_original <- calcular_roc(modelo_svm_original_nc, test_original_no_complain, "SVM - Original")
 roc_svm_smote <- calcular_roc(modelo_svm_smote_nc, test_original_no_complain, "SVM - SMOTE")
-roc_svm_tomek <- calcular_roc(modelo_svm_tomek_nc, test_original_no_complain, "SVM - Tomek")
+#roc_svm_tomek <- calcular_roc(modelo_svm_tomek_nc, test_original_no_complain, "SVM - Tomek")
 
 # Unir todos los datos en un solo dataframe
 roc_data <- rbind(roc_arbol_original, roc_arbol_smote, roc_arbol_tomek,
                   roc_svm_original, roc_svm_smote, roc_svm_tomek)
+
+# Crear la curva ROC con colores diferenciados
 
 # Crear la curva ROC con colores diferenciados
 ggplot(roc_data, aes(x = FPR, y = TPR, color = Modelo)) +
@@ -87,7 +89,20 @@ ggplot(roc_data, aes(x = FPR, y = TPR, color = Modelo)) +
   theme_minimal() +
   scale_color_manual(values = c("Árbol - Original" = "blue",
                                 "Árbol - SMOTE" = "green",
-                                "Árbol - Tomek" = "red",
                                 "SVM - Original" = "purple",
-                                "SVM - SMOTE" = "orange",
-                                "SVM - Tomek" = "brown"))
+                                "SVM - SMOTE" = "orange"))
+
+#ggplot(roc_data, aes(x = FPR, y = TPR, color = Modelo)) +
+#  geom_line(size = 1.2) +  # Líneas gruesas para mayor visibilidad
+#  geom_abline(linetype = "dashed", color = "grey") +  # Línea diagonal referencia
+#  labs(title = "Curva ROC - Comparación Modelos",
+#       x = "1 - Especificidad (FPR)",
+#       y = "Sensibilidad (TPR)",
+#       color = "Modelos") +
+#  theme_minimal() +
+#  scale_color_manual(values = c("Árbol - Original" = "blue",
+#                                "Árbol - SMOTE" = "green",
+#                                "Árbol - Tomek" = "red",
+#                                "SVM - Original" = "purple",
+#                                "SVM - SMOTE" = "orange",
+#                                "SVM - Tomek" = "brown"))
